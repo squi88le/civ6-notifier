@@ -1,0 +1,13 @@
+{
+    "webhooks": {
+        "filters": [
+            {
+                "matches": ["Specific Game"],
+                "webhook": "https://webhook1"
+            }
+        ],
+        "default":"https://webhook2"
+    },
+    "user":"InGameName",
+    "log_file":"/Users/bob/Library/Application Support/Sid Meier's Civilization VI/Logs/net_connection_debug.log"
+}
