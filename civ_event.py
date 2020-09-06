@@ -177,19 +177,27 @@ class Parser:
         ets, sts, match, typ = event
         if typ == EventType.COMMIT:
             _, name, lobby, _ = self._matches[match]
-            self._notify_all(name,
-                             f"{CFG['user']} committed a turn for game '{name}' at {ets} [lobby: {lobby}, match: {match}, joined at: {sts}]")
+            self._notify_all({
+                "user":     CFG['user'],
+                "name":     name,
+                "lobby":    lobby,
+                "event_ts": ets,
+                "join_ts":  sts,
+                "match":    match
+            })
         elif typ == EventType.UNMAPPED:
             pass
 
-    def _notify_all(self, name, msg):
+    def _notify_all(self, event):
         notified = False
         for fil in CFG['webhooks']["filters"]:
-            if name in fil['matches']:
-                notified = self._notify(fil['webhook'], msg)
+            if event['name'] in fil['matches']:
+                notified = self._notify(fil['webhook'], 
+                                        fil['message'].format(**event))
 
         if not notified:
-            self._notify(CFG['webhooks']['default'], msg)
+            self._notify(CFG['webhooks']['default'],
+                         CFG['webhooks']['message'].format(**event))
 
     def _notify(self, webhook, msg):
         res = requests.post(webhook,

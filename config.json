@@ -3,10 +3,12 @@
         "filters": [
             {
                 "matches": ["Specific Game"],
-                "webhook": "https://webhook1"
+                "webhook": "https://webhook1",
+		"message": "{user} has committed a turn!"
             }
         ],
-        "default":"https://webhook2"
+        "default":"https://webhook2",
+	"message: "{user} just committed a turn in game {name} at {event_ts}"
     },
     "user":"InGameName",
     "log_file":"/Users/bob/Library/Application Support/Sid Meier's Civilization VI/Logs/net_connection_debug.log"

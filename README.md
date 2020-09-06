@@ -33,15 +33,28 @@ it's possible to configure the game-room relationships 1:1, 1:N, N:1 or N:N as n
         "filters": [
             {
                 "matches": ["Specific Game"],
-                "webhook": "https://webhook1"
+                "webhook": "https://webhook1",
+                "message": "{user} has committed a turn!"
             }
         ],
-        "default":"https://webhook2"
+        "default": "https://webhook2",
+        "message: "{user} just committed a turn in game {name} at {event_ts}"
     },
     "user":"InGameName",
     "log_file":"/Users/bob/Library/Application Support/Sid Meier's Civilization VI/Logs/net_connection_debug.log"
 }
 ```
+
+The ```message``` field is a template that can make use of a number of keywords, introduced in braces.
+
+|Keyword|Meaning|
+|---|---|
+|user|Name of user|
+|name|Name of game|
+|lobby|Lobby number|
+|event_ts|Time of event|
+|join_ts|Time session was joined|
+|match|Match Id|
 
 ## Usage
 
